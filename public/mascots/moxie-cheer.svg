@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-labelledby="title">
+  <title id="title">Moxie comemora o acerto</title>
+  <style>
+    .actor { transform-origin: 200px 386px }
+    .tail { transform-origin: 249px 293px }
+    .face { transform-origin: 121px 220px }
+    .mouth-live { transform-origin: 60px 137px }
+    .paw { transform-origin: 91px 250px }
+    .tail, .paw { animation: wag 1.28s ease-out both }
+    .paw { animation-direction: reverse }
+    @keyframes wag { 0%, 67% { rotate: 6deg } 24%, 53% { rotate: -13deg } 88% { rotate: -5deg } }
+    .actor { animation: launch 1.28s cubic-bezier(.22,.73,.34,1) both }
+    .spark { animation: spark 1.18s ease-out both; transform-box: fill-box; transform-origin: center }
+    .spark:nth-child(2) { animation-delay: .13s }
+    .spark:nth-child(3) { animation-delay: .21s }
+    .shadow { animation: shadow-bounce 1.28s ease-out both }
+    @keyframes launch { 0% { translate: 0 7px; scale: 1.03 .92 } 28% { translate: -8px -37px; rotate: -9deg; scale: 1 1.06 } 49% { translate: 9px -35px; rotate: 3deg } 73% { translate: 0 8px; scale: 1.04 .9 } 89% { translate: 0 -9px } }
+    @keyframes spark { 0%, 11% { opacity: .22; translate: 0 11px; scale: .55 } 42% { opacity: 1; translate: 0 -9px; scale: 1.11 } 100% { opacity: .92 } }
+    @keyframes shadow-bounce { 31%, 59% { scale: .67 1; opacity: .07 } }
+
+    .shadow { transform-origin: 240px 423px }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+  </style>
+  <ellipse class="shadow" cx="240" cy="423" rx="111" ry="8" fill="#231b23" opacity=".11"/>
+  <g><g transform="translate(244 101) scale(1)"><path class="spark" fill="#f5c46c" stroke="#7b3766" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g><g transform="translate(411 94) scale(0.9)"><path class="spark" fill="#f89450" stroke="#7b3766" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g><g transform="translate(423 261) scale(0.7)"><path class="spark" fill="#f5c46c" stroke="#7b3766" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g></g>
+  <g transform="translate(64 89) scale(0.86)"><g transform="rotate(1 211 267)">
+    <g class="actor">
+      <g stroke="#231b23" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <g class="tail">
+      <path fill="#ff9c48" d="M207 277c31-17 54-28 58-68 4-29 18-47 28-42 13 7 6 22-1 25-26-19-28-58-3-81 26-25 74-23 101 6 29 32 30 83 18 118-16 48-59 93-117 104-36 6-71-7-92-25Z"/>
+      <path fill="#fff0cc" stroke="none" d="M289 118c24-28 66-27 95 3 22 24 27 52 26 78-15 11-23-13-35-14-8 1-8 32-18 29-9-4-14-32-22-27-10 6-19 22-26 16-9-6 3-24-4-33-8-11-20-8-26-1-8-16-4-34 10-51Z"/>
+    </g>
+    <path fill="#ff9c48" d="M72 202c22-20 45-27 68-16 18 48 53 47 79 66 22 18 19 49 17 69h-41l-26-35c-18 8-47 6-61-7l-18 38-47-7c11-32 20-60 29-108Z"/>
+    <path fill="#ffb360" stroke="none" d="M135 263c13 9 24 13 41 12l12 18c-16 8-39 7-52 0Z"/>
+    <g fill="#7b3766">
+      <path d="m52 292 46 12-13 51H21c0-13 9-22 28-22Z"/>
+      <path d="m117 315 42-2 2 41h-48c-2-11 5-17 16-21Z"/>
+      <path d="m183 311 45-13 13 54-57 2c0-13 7-20 17-22Z"/>
+    </g>
+    <path fill="none" stroke="#56254b" stroke-width="6" d="m52 307 33 8m42 10 21-2m46 0 32-10"/>
+<g class="paw" stroke-width="8"><path fill="#ff9c48" d="M98 242q-19-1-29-15l-24-38c-3-4-10-4-14 0s-3 10 0 16c-10-5-18-1-17 7 1 9 15 17 22 21 8 27 31 45 56 46 12-8 13-24 6-37Z"/><path fill="none" stroke="#e88042" stroke-width="5" d="M42 221q9-4 15-12"/></g>
+    <g class="face" transform="rotate(-11 121 220)"><g class="ears">
+      <path fill="#ff9c48" d="M69 89c3-25 23-62 48-81 21 15 29 42 34 72 26-15 58-22 87-21-1 41-16 75-41 93Z"/>
+      <path fill="#fff0cc" stroke="none" d="M81 84c6-23 22-50 39-66-2 18-1 40 1 63Zm87 14c18-13 38-26 61-32-1 28-14 53-34 68Z"/>
+    </g>
+    <path fill="#ff9c48" d="M37 108c18-11 27-36 66-45 44-10 81 13 104 49 7 12 14 26 21 43-14 11-44 22-82 28-5 29-16 53-27 67l-8-16-8 26c-17-9-25-17-29-33l-22 14c-9-21 4-40 19-52-26-8-50-31-57-55-6-16-5-28-2-38 9 0 15 9 25 12Z"/>
+    <path fill="#fff0cc" stroke="none" d="M13 125c27-16 44 4 76 13 41 10 72 18 80 35l-24 6c-8 4-11 33-27 63l-7-16-10 29c-14-9-24-19-27-34l-18 13c-7-13 5-34 20-46-28-9-58-41-63-63Z"/>
+    <path fill="#231b23" d="M11 97c9 1 19 6 26 12-9 10-18 12-28 10Z"/>
+    <path fill="none" stroke-width="7" d="m166 99c-5-8-12-9-18-8m31 46 16 2m-16 10 13 5m-20 2 10 8"/>
+    <path class="eye-shut" fill="none" stroke-width="7" d="M91 106c-4-15-15-16-20-8m45 23c11-12 27-11 31 7"/>
+    <g class="eye-open" opacity="0" fill="#231b23" stroke="none">
+      <ellipse cx="81" cy="101" rx="7" ry="11" transform="rotate(-12 81 101)"/>
+      <ellipse cx="134" cy="117" rx="8" ry="12" transform="rotate(-12 134 117)"/>
+      <circle cx="79" cy="98" r="2.5" fill="#fff"/><circle cx="132" cy="114" r="2.5" fill="#fff"/>
+    </g>
+    <g class="mouth-live"><path fill="#231b23" stroke-width="5" d="M40 129q17 16 45 10c-2 30-29 39-45-10Z"/><path fill="#ea7569" stroke="none" d="M55 153q13-8 24-4c-5 14-17 13-24 4Z"/></g>
+    </g>
+  </g>
+    </g>
+  </g></g>
+  
+</svg>

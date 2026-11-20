@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-labelledby="title">
+  <title id="title">Pebble celebra a lição concluída</title>
+  <style>
+    .actor { transform-origin: 241px 386px }
+    .head { transform-origin: 265px 267px }
+    .mouth-live { transform-origin: 371px 170px }
+    .paw { transform-origin: 306px 280px }
+    .head, .paw { animation: reach 1.28s ease-out both }
+    .paw { animation-delay: .08s }
+    @keyframes reach { 0%, 79% { rotate: 7deg } 32%, 56% { rotate: -18deg; translate: 8px -3px } }
+    .actor { animation: settle 2.85s ease-in-out infinite }
+    .award { animation: award 1.22s cubic-bezier(.22,.73,.34,1) both; transform-box: fill-box; transform-origin: center bottom }
+    .spark { animation: glimmer 2.4s ease-in-out infinite }
+    .spark:nth-child(2) { animation-delay: .38s }
+    .spark:nth-child(3) { animation-delay: .72s }
+    @keyframes settle { 0%, 100% { translate: 0 0 } 28% { translate: 2px -7px; rotate: -4deg } 59% { translate: -2px -3px; rotate: 3deg } }
+    @keyframes award { 0%, 22% { scale: .75; rotate: -12deg; translate: 0 21px; opacity: .27 } 63% { scale: 1.09; rotate: 7deg; opacity: 1 } }
+    @keyframes glimmer { 0%, 100% { opacity: .46; translate: 0 0 } 43% { opacity: 1; translate: 0 -5px } }
+
+    .shadow { transform-origin: 240px 423px }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+  </style>
+  <ellipse class="shadow" cx="240" cy="423" rx="131" ry="8" fill="#231b23" opacity=".11"/>
+  <g><g transform="translate(121 128) scale(0.87)"><path class="spark" fill="#f6c365" stroke="#56254b" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g><g transform="translate(256 86) scale(1)"><path class="spark" fill="#84a765" stroke="#56254b" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g><g transform="translate(427 130) scale(0.8)"><path class="spark" fill="#f6c365" stroke="#56254b" stroke-width="4" stroke-linejoin="round" d="M0-16Q2-5 15 0 4 2 0 16-4 4-15 0-4-4 0-16Z"/></g></g>
+  <g transform="translate(39 87) scale(0.89)"><g transform="rotate(0 211 267)">
+    <g class="actor">
+      <g stroke="#231b23" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#d68caf" d="M69 273c-25 8-45 21-59 39 14 14 37 23 62 14l35-24Z"/>
+    <path fill="#fff0cc" d="M67 270c33 62 37 79 112 87 75 11 149-26 158-85-97-33-180-30-270-2Z"/>
+    <path fill="none" stroke="#dc9f63" stroke-width="5" d="M101 297c1 20 9 39 22 50m32-32c0 14 8 30 19 39m43-39 20 31m25-49c16 6 35 4 57-6"/>
+    <path fill="#afc989" d="M63 298c-20 14-40 50-39 68 1 13 37 18 66 14 17-2 12-19 29-62Zm239-30c31 17 59 62 60 87 0 13-33 25-61 22-15-1-23-9-23-26-2-19-11-42-27-68Z"/>
+    <path fill="#56254b" d="M35 264C63 168 137 93 216 91c81-2 131 51 143 123l-47 54c-41 36-100 63-170 59-53-3-110-22-107-63Z"/>
+    <g fill="#d68caf" stroke="none">
+      <path d="M66 207c13-30 52-67 65-63 14 4 7 29-16 52-19 20-54 34-49 11Z"/>
+      <path d="M126 137c8-17 50-36 84-35 22 0 25 15 10 32-24 28-103 35-94 3Z"/>
+      <path d="M219 153c12-28 33-37 54-28 20 7 34 26 36 42 2 14-17 25-42 25-33 0-55-16-48-39Z"/>
+      <path d="M48 259c4-27 30-47 45-40 16 7 17 35 4 55-9 15-24 25-38 20-11-3-14-18-11-35Z"/>
+      <path d="M111 214c23-37 71-57 98-41 24 15 18 53-9 80-25 24-66 37-89 20-17-12-14-37 0-59Z"/>
+      <path d="M224 222c13-23 43-34 72-23 24 10 26 30 9 48-18 17-49 23-70 13-14-6-18-25-11-38Z"/>
+      <path d="M90 303c2-15 28-26 50-24 23 2 39 13 38 25 0 11-15 16-43 14-22-2-46-6-45-15Z"/>
+      <path d="M179 302c0-18 20-35 44-40 19-4 44 1 41 13-4 13-41 31-66 37-12 4-19-1-19-10Z"/>
+    </g>
+    <path fill="#b7d296" d="M257 253c-45 5-81 55-88 96-4 21-2 34 7 40 10 5 54 6 72 0 20-7 5-28 5-51 0-28 19-56 36-69Z"/>
+<g class="paw" stroke-width="8"><path fill="#b7d296" d="M304 277c10-18 31-24 48-26 12-1 23-7 32-16 6-6 13-6 17 0 4 7-2 16-7 22 14-6 23-2 22 7-1 9-17 15-29 16 12 4 16 11 12 16-6 8-20 5-32-3-28 12-52 16-63-16Z"/><path fill="none" stroke="#76975e" stroke-width="5" d="M359 264q9 5 10 17"/></g>
+    <g class="head" transform="rotate(-10 265 267)">
+      <path fill="#b7d296" d="M257 265c22-12 34-27 40-53-17-29-18-66-2-91 14-23 36-36 58-35 48 0 73 33 69 65-3 30-26 51-56 56-10 44-44 85-82 89-14 2-23-8-27-31Z"/>
+      <path fill="#c8dea9" stroke="none" d="M307 185c-22-40 6-88 46-88 37-1 51 19 54 33-25-15-56-11-75 4-15 13-21 31-25 51Z"/>
+      <g class="mouth-live"><path fill="#231b23" stroke-width="5" d="M349 161q18 14 40-5c0 28-34 33-40 5Z"/><path fill="#ec9da6" stroke="none" d="M360 178q8-8 20-7c-4 10-12 12-20 7Z"/></g>
+      <path class="eye-shut" fill="none" stroke-width="7" d="M326 151c6-15 19-16 29-5m27-13c0-11 9-17 17-11"/>
+      <g class="eye-open" opacity="0" fill="#231b23" stroke="none">
+        <ellipse cx="343" cy="145" rx="8" ry="11"/><ellipse cx="389" cy="128" rx="7" ry="10"/>
+        <circle cx="345" cy="142" r="2.6" fill="#fff"/><circle cx="391" cy="125" r="2.3" fill="#fff"/>
+      </g>
+      <path fill="#efc2c8" stroke="none" d="M342 178c-6 5-17 3-19-3-3-7 3-12 10-11 8 2 14 10 9 14Z"/>
+    </g>
+    <g fill="#fff0cc" stroke-width="3">
+      <path d="M37 375c4-16 14-16 16 2Zm18 4c4-19 14-20 17 1Zm19 1c3-15 11-16 14-1Z"/>
+      <path d="M184 390c4-17 17-19 20 2Zm23 2c3-22 16-22 19 0Zm23 0c1-18 11-18 13-2Z"/>
+      <path d="M308 374c3-16 14-17 18-2Zm21-3c2-18 12-19 17-5Zm18-6c0-15 8-17 11-7Z"/>
+    </g>
+  </g>
+    </g>
+  </g></g>
+  <g transform="translate(327 323) rotate(8) scale(0.92)">
+    <g class="award" stroke="#231b23" stroke-width="5" stroke-linejoin="round">
+      <path fill="#56254b" d="m-22-1-16 33 15-2 8 13L0 11m22-12 16 33-15-2-8 13L0 11"/>
+      <circle r="30" fill="#f6c365"/>
+      <circle r="24" fill="#ffe294" stroke="#56254b" stroke-width="3"/>
+      <path fill="#f9b94e" stroke-width="3" d="m0-16 4 10 11 1-8 8 2 10-9-5-9 5 2-10-8-8 11-1Z"/>
+    </g>
+  </g>
+</svg>

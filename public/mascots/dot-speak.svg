@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-labelledby="title">
+  <title id="title">Dot fala</title>
+  <style>
+    .actor { transform-origin: 218px 386px }
+    .left { transform-origin: 182px 221px }
+    .right { transform-origin: 222px 221px }
+    .mouth-live { transform-origin: 203px 194px }
+    .left, .right { animation: flutter .82s ease-in-out infinite }
+    @keyframes flutter { 0%, 100% { scale: 1 1 } 47% { scale: .75 1.03 } }
+    .actor { animation: speak-gesture 1.65s ease-in-out infinite }
+    .mouth-live { animation: syllables .88s ease-in-out infinite }
+    .voice path { animation: sound 1.12s ease-out infinite }
+    .voice path:nth-child(2) { animation-delay: .13s }
+    .voice path:nth-child(3) { animation-delay: .26s }
+    @keyframes speak-gesture { 0%, 100% { translate: 0 0 } 34% { translate: 0 -5px; rotate: -2deg } 68% { rotate: 1deg } }
+    @keyframes syllables { 0%, 47%, 88%, 100% { scale: 1 .35 } 15%, 65% { scale: .91 1.26 } 35% { scale: 1 .89 } }
+    @keyframes sound { 0%, 100% { opacity: .38; translate: -3px 4px } 48% { opacity: 1; translate: 5px -3px } }
+
+    .eye-open { animation: eyes-open 2.9s steps(1) infinite }
+    .eye-shut { animation: eyes-shut 2.9s steps(1) infinite }
+    @keyframes eyes-open { 0%, 56%, 100% { opacity: 1 } 50% { opacity: 0 } }
+    @keyframes eyes-shut { 0%, 56%, 100% { opacity: 0 } 50% { opacity: 1 } }
+
+    .shadow { transform-origin: 240px 423px }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+  </style>
+  <ellipse class="shadow" cx="240" cy="423" rx="71" ry="8" fill="#231b23" opacity=".11"/>
+  <g class="voice" transform="translate(356 131) scale(1 1)" fill="none" stroke="#92355f" stroke-width="7" stroke-linecap="round"><path d="m0 7 9-10"/><path d="M11 18q15-7 20-16"/><path d="M13 33q19-1 31-12"/></g>
+  <g transform="translate(55 77) scale(0.92)"><g transform="rotate(6 211 267)">
+    <g class="actor">
+      <g class="dot-body" stroke="#231b23" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <g class="left">
+      <path fill="#efa5bc" d="M181 201c-40-39-96-52-139-32-34 16-46 58-11 79-5 25 13 52 49 42-22 31-4 58 19 55 5 15 25 9 40-2 25-17 42-53 54-102Z"/>
+      <path fill="#92355f" stroke="none" d="M178 207c-46-35-96-47-126-25-22 15-17 37 1 45-5 21 15 41 41 35 23-4 52-22 84-55Zm5 24c-33 20-72 51-85 77-6 17 6 25 17 21 7 14 29 2 42-19 11-19 20-42 26-79Z"/>
+      <g fill="#fff0cc" stroke="none">
+        <ellipse cx="83" cy="203" rx="18" ry="11" transform="rotate(-9 83 203)"/>
+        <ellipse cx="112" cy="235" rx="14" ry="10" transform="rotate(-23 112 235)"/>
+        <ellipse cx="144" cy="285" rx="14" ry="8" transform="rotate(-53 144 285)"/>
+      </g>
+    </g>
+    <g class="right">
+      <path fill="#efa5bc" d="M219 201c40-38 96-52 139-32 40 19 47 63 13 79 6 24-17 49-49 43 19 28 4 55-21 53-6 17-30 8-48-4-24-16-38-55-49-99Z"/>
+      <path fill="#92355f" stroke="none" d="M221 207c45-34 98-48 129-24 22 16 18 37-1 45 5 21-18 39-42 34-27-5-53-23-86-55Zm-4 24c34 21 72 51 84 77 7 16-4 27-15 21-9 14-29 2-43-19-11-19-20-42-26-79Z"/>
+      <g fill="#fff0cc" stroke="none">
+        <ellipse cx="318" cy="203" rx="18" ry="11" transform="rotate(9 318 203)"/>
+        <ellipse cx="288" cy="235" rx="14" ry="10" transform="rotate(23 288 235)"/>
+        <ellipse cx="257" cy="285" rx="14" ry="8" transform="rotate(53 257 285)"/>
+      </g>
+    </g>
+    <path fill="#92355f" d="M193 275c-11 22-11 65-3 67 8 3 9-37 13-45 2 10 4 45 11 44 8 0 5-43-4-67Z"/>
+    <path fill="#efb0ba" d="M176 213c-12 27-9 72 27 101 35-24 44-64 25-101Z"/>
+    <path fill="none" stroke="#df8b9e" stroke-width="5" d="M180 253c11 10 30 13 43 5m-38 22c10 4 25 4 35 1"/>
+    <path fill="none" stroke="#56254b" d="M196 142c-9-58-29-76-48-75-19 1-29 17-19 33 11 16 33 3 24-8m53 50c7-55 33-75 52-75 17 0 28 17 17 32-11 15-30 5-23-7"/>
+    <path fill="#f5adad" d="M145 197c-1-30 23-60 54-60 34-1 57 23 60 55 1 22-20 47-53 48-31 1-59-7-61-43Z"/>
+    <path fill="#fff0cc" stroke-width="6" d="M149 188c-17 0-24 15-12 22 3 3 8 3 12 1-4 13 4 23 14 20 2 12 17 17 25 9 4 15 24 12 30 1 8 10 23 3 25-7 14 3 20-8 15-20 12-2 18-12 12-20-6-11-22-11-32-3-23 12-52 12-71-1-6-4-13-6-18-2Z"/>
+    <g class="eye-open" fill="#231b23" stroke="none">
+      <ellipse cx="178" cy="171" rx="7" ry="10"/><ellipse cx="227" cy="169" rx="7" ry="10"/>
+      <circle cx="180" cy="168" r="2.5" fill="#fff"/><circle cx="229" cy="166" r="2.5" fill="#fff"/>
+    </g>
+    <path class="eye-shut" fill="none" opacity="0" d="M166 178c5-13 17-16 23-4m28-1c4-13 18-11 22 0"/>
+    <g class="mouth-live"><ellipse cx="203" cy="193" rx="12" ry="9" fill="#231b23" stroke-width="3"/><ellipse cx="204" cy="197" rx="6" ry="3" fill="#f391a9" stroke="none"/></g>
+  </g>
+    </g>
+  </g></g>
+  
+</svg>

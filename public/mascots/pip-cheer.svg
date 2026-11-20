@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Pip throws both wings up in a jump</title>
+  <style>
+    
+    
+      .actor { transform-origin: 123px 204px; animation: leap 1.12s cubic-bezier(.21,.72,.33,1) both }
+      .back { transform-origin: 82px 149px; animation: stretch-left 1.12s ease-out both }
+      .front { transform-origin: 171px 149px; animation: stretch-right 1.12s ease-out both }
+      .shadow { transform-origin: 125px 221px; animation: shadow 1.12s ease-out both }
+      .burst { transform-origin: 120px 65px; animation: sparks 1.12s ease-out both }
+      @keyframes leap { 0% { transform: translateY(6px) scaleY(.92) } 20% { transform: translateY(-17px) rotate(-9deg) scaleY(1.07) } 42% { transform: translateY(-30px) rotate(7deg) } 70% { transform: translateY(2px) scaleY(.93) } 84% { transform: translateY(-4px) scaleY(1.03) } }
+      @keyframes stretch-left { 0% { transform: rotate(-20deg) } 29% { transform: rotate(20deg) } 71% { transform: rotate(-12deg) } }
+      @keyframes stretch-right { 0% { transform: rotate(18deg) } 29% { transform: rotate(-18deg) } 71% { transform: rotate(11deg) } }
+      @keyframes shadow { 27%, 48% { transform: scaleX(.64); opacity: .56 } }
+      @keyframes sparks { 0%, 15% { opacity: .3; transform: translateY(9px) scale(.79) } 48% { opacity: 1; transform: translateY(-8px) scale(1.1) } }
+    
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+  </style>
+  <g transform="translate(9 28) scale(.92)">
+  <ellipse class="shadow" cx="123" cy="221" rx="52" ry="7" fill="currentColor" opacity=".10"/>
+  <g stroke="#292235" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <g class="burst" stroke-width="3"><path fill="#fadc61" d="m36 68 5-7 6 7-6 7Zm154-25 4-6 6 6-6 6Z"/><path d="m209 62 7-5m-10-4 3-7M35 44l-5-5m12 1v-8" stroke="#863b70" fill="none"/></g>
+    <g class="actor"><g transform="translate(2 3)">
+      <g class="tail"><path fill="#863b70" d="M85 173c-19-14-39-15-44-5-3 6 4 12 14 17-18-5-24 3-19 10 5 8 25 8 40 2-8 5-11 11-4 14 9 4 22-5 27-13Z"/><path fill="none" stroke="#603257" stroke-width="2.8" d="M61 190c7 1 11 1 17-1"/></g>
+      <path fill="#ffca69" d="m101 188-11 18c-13-1-23 1-26 6-3 7 6 9 19 7 3 6 9 5 16 0l10-12 6-17Zm36 0 8 18c3 6 9 9 15 10 8 1 16 0 17-4 1-7-11-10-19-12l-6-15Z"/>
+      <g class="back"><path fill="#863b70" d="M89 151c-9-4-27-11-35-25-6-10-8-24-13-34-3-8-10-8-13-3-4 5-3 12-1 19-7-5-14-4-15 1-2 7 5 17 12 21-10-2-13 4-9 9 3 5 12 8 20 9-8 1-10 6-5 10 9 7 38 8 54 1 5-2 7-4 5-8Z"/><path fill="none" stroke="#603257" stroke-width="3" d="M40 132c9 11 19 15 31 18"/></g>
+      
+  <path fill="#ffa142" d="M93 118c-15 12-24 34-22 52 3 25 26 39 61 39 26 0 48-15 50-37 2-22-11-45-28-53Z"/>
+  <path fill="#ec7437" stroke="none" d="M170 141c5 12 7 23 3 33-7 22-37 30-64 27-15-2-27-7-34-16 8 14 28 24 57 24 26 0 48-15 50-37 1-12-4-24-12-31Z"/>
+  <path fill="#ffbb68" stroke="none" d="M105 153c12-9 34-8 48 2 15 11 11 28-1 36-15 8-54 8-60-5-5-11 1-24 13-33Z"/>
+
+      <g class="head-live"><g transform="rotate(-9 125 122)">
+        
+  <path fill="#ffa142" d="M74 108c-13-11-15-30-6-47 7-13 20-21 35-24-11-3-19-10-17-16 3-7 19-6 33 8-6-15 0-25 6-23 7 2 10 16 9 26 20-5 42 6 52 22 11 17 10 37-1 52-9 15-29 25-57 26-25 1-43-7-54-24Z"/>
+  <path fill="#fff1c5" stroke="none" d="M85 87c0-16 8-29 21-31 12-2 21 7 25 16 5-15 17-22 29-20 15 3 25 18 25 35 0 21-23 38-51 39-27 1-49-13-49-39Z"/>
+  <path fill="#f58f70" stroke="none" d="M89 97c4-3 13-3 16 0 3 4-2 7-8 7-6 0-10-3-8-7Zm81-4c4-2 10-2 13 1 2 4-2 6-6 6-6 0-9-3-7-7Z"/>
+
+        <g fill="none" stroke-width="3.8"><path d="M102 86c3-9 12-10 17-2m31-2c3-8 11-9 15-2"/></g>
+        <path fill="#292235" d="M120 97c5-6 20-8 31-3-1 14-6 22-15 22-8 0-14-9-16-19Z"/><path fill="#f78a93" stroke="none" d="M128 108c5-3 11-2 16 2-5 6-12 5-16-2Z"/><path fill="#ffca69" d="M121 96c4-7 15-11 24-8 6 1 11 6 11 9-8 4-24 6-35-1Z"/>
+      </g></g>
+      
+  <path fill="#f5abbd" class="scarf-tail" d="M91 139c-13-3-24 3-33 12 12-1 16 3 24 8 10-3 17-8 19-15Z"/>
+  <path fill="#f5abbd" d="M92 123c24 8 48 7 73-1 5 3 7 9 5 14-13 13-51 18-77 8-9-4-10-15-1-21Z"/>
+  <path fill="none" stroke="#ad5e83" stroke-width="2.8" d="M110 135c8 2 18 2 25 1"/>
+  <path fill="#f5abbd" d="M92 132c8-1 12 3 12 10-1 7-8 9-15 7-8-2-8-16 3-17Z"/>
+
+      
+      <g class="front"><path fill="#863b70" d="M169 147c13-4 21-11 25-24 4-12 3-24 8-30 4-4 10-1 11 4 1 6 0 12-2 17 9-7 14-4 15 1 1 7-6 16-13 20 8 0 12 3 7 8-5 6-13 9-19 10 7 2 8 7 3 11-12 6-31 3-42-3-5-5 1-11 7-14Z"/><path fill="none" stroke="#603257" stroke-width="3" d="M204 131c-5 9-12 15-20 19"/></g>
+    </g></g>
+  </g>
+  </g>
+</svg>
