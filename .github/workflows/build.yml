@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  web:
-    name: Build web app
+  check:
+    name: Check build
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     outputs:
@@ -28,187 +28,116 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '24'
-          cache: npm
-      - name: Validate version and release notes
+          package-manager-cache: false
+      - name: Validate version and changelog
         id: metadata
         run: node .github/scripts/release-info.mjs "$RUNNER_TEMP/release-notes.md"
       - run: npm ci
       - run: npm run build
-      - name: Check PWA output
+      - name: Check site output
         run: |
           test -s dist/index.html
           test -s dist/manifest.webmanifest
           node --check dist/sw.js
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: blingo-dist
-          path: dist/
-          if-no-files-found: error
-          retention-days: 7
-      - name: Package the web release
-        if: github.ref == 'refs/heads/main'
-        run: |
-          mkdir web-bundle
-          cp LICENSE dist/LICENSE.txt
-          (cd dist && zip -X -q -r ../web-bundle/Blingo-Web.zip .)
-          cp "$RUNNER_TEMP/release-notes.md" web-bundle/release-notes.md
-      - if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: blingo-release-web
-          path: web-bundle/
-          if-no-files-found: error
-          retention-days: 7
-
-  windows:
-    name: Build Windows (${{ matrix.arch }})
-    needs: web
-    runs-on: ${{ matrix.runner }}
-    timeout-minutes: 35
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - arch: x64
-            runner: windows-2025
-            target: x86_64-pc-windows-msvc
-            machine: '0x8664'
-          - arch: arm64
-            runner: windows-11-arm
-            target: aarch64-pc-windows-msvc
-            machine: '0xAA64'
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
-        with:
-          name: blingo-dist
-          path: dist/
-      - name: Compile the native executable
-        shell: pwsh
-        env:
-          BLINGO_TARGET: ${{ matrix.target }}
-          BLINGO_RUST: '1.98.0'
-        run: |
-          rustup toolchain install $env:BLINGO_RUST --profile minimal --target $env:BLINGO_TARGET
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          rustup run $env:BLINGO_RUST cargo build --locked --release --manifest-path desktop/Cargo.toml --target $env:BLINGO_TARGET
-      - name: Verify and name the executable
-        shell: pwsh
-        env:
-          BLINGO_ARCH: ${{ matrix.arch }}
-          BLINGO_TARGET: ${{ matrix.target }}
-          BLINGO_MACHINE: ${{ matrix.machine }}
-          BLINGO_VERSION: ${{ needs.web.outputs.version }}
-        run: |
-          $exe = Resolve-Path "desktop/target/$env:BLINGO_TARGET/release/Blingo.exe"
-          $reader = [IO.BinaryReader]::new([IO.File]::OpenRead($exe.Path))
-          try {
-            if ($reader.ReadUInt16() -ne 0x5A4D) { throw 'Missing DOS header.' }
-            $reader.BaseStream.Position = 0x3C
-            $reader.BaseStream.Position = $reader.ReadInt32()
-            if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Missing PE header.' }
-            if ($reader.ReadUInt16() -ne [Convert]::ToUInt16($env:BLINGO_MACHINE.Substring(2), 16)) {
-              throw "Unexpected executable architecture for $env:BLINGO_ARCH."
-            }
-          } finally {
-            $reader.Dispose()
-          }
-          $version = (Get-Item -LiteralPath $exe.Path).VersionInfo.ProductVersion
-          if ($version -ne $env:BLINGO_VERSION) { throw "Unexpected executable version $version." }
-          New-Item -ItemType Directory -Path release-output | Out-Null
-          Copy-Item -LiteralPath $exe.Path -Destination "release-output/Blingo-Windows-$env:BLINGO_ARCH.exe"
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: blingo-release-${{ matrix.arch }}
-          path: release-output/
-          if-no-files-found: error
-          retention-days: 7
-          compression-level: 0
 
   release:
-    name: Publish a new version
-    if: github.ref == 'refs/heads/main'
-    needs: [web, windows]
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    name: Publish Windows release
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: check
+    runs-on: windows-2025
+    timeout-minutes: 45
     permissions:
       contents: write
-      actions: read
+    env:
+      BLINGO_VERSION: ${{ needs.check.outputs.version }}
+      BLINGO_RUST: '1.98.0'
     steps:
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
-        with:
-          pattern: blingo-release-*
-          merge-multiple: true
-          path: release-output/
-      - name: Publish artifacts and the changelog
-        working-directory: release-output
+      - name: Check release status
+        id: plan
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          TAG: v${{ needs.web.outputs.version }}
         run: |
-          status="$(gh api --paginate "repos/$GH_REPO/releases?per_page=100" --jq ".[] | select(.tag_name == \"$TAG\") | .draft")"
-          if [[ "$status" == false ]]; then
-            echo "Blingo $TAG is already published."
+          $tag = "v$env:BLINGO_VERSION"
+          $status = gh api --paginate "repos/$env:GH_REPO/releases?per_page=100" --jq ('.[] | select(.tag_name == "' + $tag + '") | .draft')
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($status -eq 'false') {
+            Write-Output "Blingo $tag is already published."
+            'publish=false' >> $env:GITHUB_OUTPUT
             exit 0
-          fi
-          refs="$(gh api "repos/$GH_REPO/git/matching-refs/tags/$TAG" --jq '.[].ref')"
-          if grep -Fxq "refs/tags/$TAG" <<< "$refs"; then
-            tagged_commit="$(gh api "repos/$GH_REPO/commits/$TAG" --jq .sha)"
-            if [[ "$tagged_commit" != "$GITHUB_SHA" ]]; then
-              echo "::error::Tag $TAG belongs to a different commit. Bump the version to release this commit."
-              exit 1
-            fi
-          fi
-          sha256sum Blingo-Windows-x64.exe Blingo-Windows-arm64.exe Blingo-Web.zip > SHA256SUMS.txt
-          if [[ "$status" == true ]]; then
-            gh release edit "$TAG" --target "$GITHUB_SHA" --title "Blingo $TAG" --notes-file release-notes.md
-          else
-            gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "Blingo $TAG" --notes-file release-notes.md
-          fi
-          gh release upload "$TAG" Blingo-Windows-x64.exe Blingo-Windows-arm64.exe Blingo-Web.zip SHA256SUMS.txt --clobber
-          gh release edit "$TAG" --draft=false --latest
-
-  pages:
-    name: Deploy web app to Pages
-    if: github.ref == 'refs/heads/main'
-    needs: web
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    permissions:
-      actions: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Check Pages source
-        id: source
+          }
+          $refs = gh api "repos/$env:GH_REPO/git/matching-refs/tags/$tag" --jq '.[].ref'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($refs -ccontains "refs/tags/$tag") {
+            $commit = gh api "repos/$env:GH_REPO/commits/$tag" --jq .sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            if ($commit -ne $env:GITHUB_SHA) { throw "Tag $tag points to another commit. Bump the version." }
+          }
+          'publish=true' >> $env:GITHUB_OUTPUT
+          "draft=$($status -eq 'true')".ToLowerInvariant() >> $env:GITHUB_OUTPUT
+      - if: steps.plan.outputs.publish == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - if: steps.plan.outputs.publish == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - if: steps.plan.outputs.publish == 'true'
+        run: npm ci
+      - if: steps.plan.outputs.publish == 'true'
+        run: npm run build
+      - name: Build Windows x64 and ARM64
+        if: steps.plan.outputs.publish == 'true'
+        shell: pwsh
+        run: |
+          $targets = @(
+            @{ arch = 'x64'; triple = 'x86_64-pc-windows-msvc'; machine = 0x8664 }
+            @{ arch = 'arm64'; triple = 'aarch64-pc-windows-msvc'; machine = 0xAA64 }
+          )
+          rustup toolchain install $env:BLINGO_RUST --profile minimal --target 'x86_64-pc-windows-msvc,aarch64-pc-windows-msvc'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output = New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP 'blingo-release')
+          $hashes = foreach ($target in $targets) {
+            rustup run $env:BLINGO_RUST cargo build --locked --release --manifest-path desktop/Cargo.toml --target $target.triple | Out-Host
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $exe = Get-Item -LiteralPath "desktop/target/$($target.triple)/release/Blingo.exe"
+            $reader = [IO.BinaryReader]::new([IO.File]::OpenRead($exe.FullName))
+            try {
+              if ($reader.ReadUInt16() -ne 0x5A4D) { throw 'Missing DOS header.' }
+              $reader.BaseStream.Position = 0x3C
+              $reader.BaseStream.Position = $reader.ReadInt32()
+              if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Missing PE header.' }
+              if ($reader.ReadUInt16() -ne $target.machine) { throw "Unexpected architecture for $($target.arch)." }
+            } finally {
+              $reader.Dispose()
+            }
+            if ($exe.VersionInfo.ProductVersion -ne $env:BLINGO_VERSION) { throw 'Unexpected executable version.' }
+            $name = "Blingo-Windows-$($target.arch).exe"
+            $path = Join-Path $output.FullName $name
+            Copy-Item -LiteralPath $exe.FullName -Destination $path
+            (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() + "  $name"
+          }
+          $hashes | Set-Content -LiteralPath (Join-Path $output.FullName 'SHA256SUMS.txt') -Encoding ascii
+          node .github/scripts/release-info.mjs (Join-Path $output.FullName 'notes.md')
+      - name: Publish executables and release notes
+        if: steps.plan.outputs.publish == 'true'
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_DRAFT: ${{ steps.plan.outputs.draft }}
         run: |
-          if mode="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type 2>&1)"; then
-            if [[ "$mode" == workflow ]]; then
-              echo 'enabled=true' >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          elif [[ "$mode" != *'HTTP 404'* ]]; then
-            echo "$mode"
-            exit 1
-          fi
-          echo '::notice::Choose GitHub Actions in Settings → Pages, then run this workflow again.'
-      - if: steps.source.outputs.enabled == 'true'
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
-        with:
-          name: blingo-dist
-          path: dist/
-      - if: steps.source.outputs.enabled == 'true'
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
-        with:
-          path: dist/
-      - if: steps.source.outputs.enabled == 'true'
-        id: deployment
-        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+          $tag = "v$env:BLINGO_VERSION"
+          Set-Location -LiteralPath (Join-Path $env:RUNNER_TEMP 'blingo-release')
+          if ($env:RELEASE_DRAFT -eq 'true') {
+            gh release edit $tag --target $env:GITHUB_SHA --title "Blingo $tag" --notes-file notes.md
+          } else {
+            gh release create $tag --draft --target $env:GITHUB_SHA --title "Blingo $tag" --notes-file notes.md
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release upload $tag Blingo-Windows-x64.exe Blingo-Windows-arm64.exe SHA256SUMS.txt --clobber
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release edit $tag --draft=false --latest
