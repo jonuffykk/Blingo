@@ -1,0 +1,25 @@
+{
+  "name": "blingo",
+  "version": "2.2.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Inglês para brasileiros com trilha de lições, áudio offline e revisão espaçada.",
+  "repository": "github:jonuffykk/blingo",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --base ./",
+    "check": "tsc --noEmit",
+    "build": "npm run check && vite build --base ./ && node scripts/offline.mjs",
+    "preview": "vite preview --base ./",
+    "version": "node scripts/sync-version.mjs",
+    "desktop": "npm run build && cargo run --release --locked --manifest-path desktop/Cargo.toml",
+    "desktop:build": "npm run build && cargo build --release --locked --manifest-path desktop/Cargo.toml"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "8.3.8"
+  }
+}
