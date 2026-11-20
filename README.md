@@ -1,64 +1,41 @@
 # Blingo
 
-Aprenda inglês do zero com lições curtas, áudio offline, revisão espaçada e uma trilha feita para brasileiros.
+Inglês para brasileiros, com lições curtas e revisão espaçada.
 
-[Estudar no navegador](https://jonuffykk.github.io/blingo/) · [Baixar a versão mais recente](https://github.com/jonuffykk/blingo/releases/latest) · [Notas de atualização](CHANGELOG.md)
+[Baixar para Windows](https://github.com/jonuffykk/blingo/releases/latest) · [Notas de atualização](CHANGELOG.md) · [Contribuir](CONTRIBUTING.md)
 
-São 16 lições em quatro trechos, dos primeiros cumprimentos a conversas na cidade e relatos no passado. Os 96 exercícios juntam escuta, tradução e produção de frases, com áudio em velocidade normal e reduzida.
+<img src="design/trilha.png" alt="Trilha de inglês no Blingo, com o primeiro trecho aberto e a próxima lição em destaque" width="960">
 
-A aba **Trilha** mostra onde você parou. Em **Praticar**, a revisão prioriza frases no dia em que voltam a vencer, e o treino de escuta e a revisão de erros ficam sempre à mão. O progresso é salvo no dispositivo. Abra **Configurações → Backup de progresso** para mover perfis entre o navegador e o aplicativo de Windows.
+São 16 lições e 96 exercícios. Você começa pelos cumprimentos e avança para situações do dia a dia. Na escuta, dá para repetir o áudio em dois ritmos. Na hora de escrever, você pode montar a frase ou digitar a resposta.
 
-A atualização mantém os perfis locais da edição anterior e inicia a trilha de inglês do zero. O histórico de espanhol fica guardado separadamente no armazenamento da edição anterior.
+<p>
+  <img src="design/escuta.png" alt="Dot, a borboleta, comemorando um acerto no exercício de escuta" width="625">
+  <img src="design/celular.png" alt="Trilha do Blingo no celular" width="200">
+</p>
 
-## Abrir e instalar
+### Usar o Blingo
 
-| Dispositivo | Como abrir |
-| --- | --- |
-| Windows x64 | [Baixar Blingo-Windows-x64.exe](https://github.com/jonuffykk/blingo/releases/latest/download/Blingo-Windows-x64.exe) |
-| Windows ARM64 | [Baixar Blingo-Windows-arm64.exe](https://github.com/jonuffykk/blingo/releases/latest/download/Blingo-Windows-arm64.exe) |
-| Android | Abra o [Blingo no Chrome](https://jonuffykk.github.io/blingo/) e use **Adicionar à tela inicial** ou **Instalar** no menu. |
-| iPhone e iPad | Abra o [Blingo no Safari](https://jonuffykk.github.io/blingo/), toque em **Compartilhar** e escolha **Adicionar à Tela de Início**. |
-| macOS, Linux e Chromebook | Use o [Blingo no navegador](https://jonuffykk.github.io/blingo/). Quando disponível, instale pelo menu do navegador. |
+Baixe o executável para [Windows x64](https://github.com/jonuffykk/blingo/releases/latest/download/Blingo-Windows-x64.exe) ou [Windows ARM64](https://github.com/jonuffykk/blingo/releases/latest/download/Blingo-Windows-arm64.exe). Ele roda offline e usa o [WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) do Windows. Os executáveis são portáteis e sem assinatura digital.
 
-Os executáveis do Windows usam o [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), funcionam offline e estão sem assinatura digital. A instalação web fica disponível offline depois que a primeira visita online termina de baixar os arquivos. Para hospedar a aplicação em outro endereço, extraia [Blingo-Web.zip](https://github.com/jonuffykk/blingo/releases/latest/download/Blingo-Web.zip) em um servidor HTTPS.
+No Android, iOS, macOS e Linux, use a versão web. O repositório inclui a configuração da demo na Vercel. Depois da primeira visita, o navegador guarda os arquivos do curso para uso offline.
 
-## Executar a partir do código
+Cada instalação guarda perfis e progresso no próprio dispositivo. Para levar seus dados do navegador para o aplicativo, use **Configurações → Backup de progresso**.
 
-Use Node.js 22.12 ou superior.
+### Rodar o projeto
+
+Use Node.js 22.12 ou mais recente.
 
 ```sh
 npm ci
 npm run dev
-npm run build
-npm run preview
 ```
 
-A saída web fica em `dist/`. Para gerar o aplicativo de Windows, use Rust 1.88 ou superior com as ferramentas MSVC e execute `npm run desktop:build`. O executável será criado em `desktop/target/release/Blingo.exe`.
+`npm run build` gera o site em `dist/`. No Windows, `npm run desktop:build` compila o executável em `desktop/target/release/Blingo.exe`. Para esse build, instale Rust 1.88 ou mais recente e as ferramentas MSVC.
 
-| Caminho | Conteúdo |
-| --- | --- |
-| `src/course.ts`, `src/audio-timings.ts` | Lições, explicações e tempos do áudio |
-| `src/study.ts` | Perfis, progresso, corações e revisão espaçada |
-| `src/main.ts`, `src/views.ts`, `src/style.css` | Trilha, exercícios e interface responsiva |
-| `public/` | Áudio offline, fontes, ícones e personagens em SVG |
-| `desktop/` | Janela nativa do Windows com Rust e WebView2 |
+### Contribuir
 
-[Vite 8.3.8](https://github.com/vitejs/vite/releases/tag/v8.3.8) gera o build estático e [TypeScript 7.0.2](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/) verifica o código. O navegador carrega a aplicação sem pacotes JavaScript de terceiros. [Tao](https://docs.rs/tao/0.37.2/tao/) e [Wry](https://docs.rs/wry/0.57.2/wry/) integram a janela nativa ao WebView do sistema.
+Correções nas lições, no áudio, nas animações e na interface são bem-vindas. Faça um fork, abra um pull request e conte como testou. O [guia de contribuição](CONTRIBUTING.md) também explica como manter os releases e a demo.
 
-## Publicar em jonuffykk/blingo
+### Créditos
 
-1. Crie o [repositório público vazio](https://github.com/new) com o nome `blingo` na conta `jonuffykk`.
-2. Envie a branch `main` com `git push -u origin main`.
-3. Em **Settings → Pages**, selecione **GitHub Actions** em **Source**. Se a primeira execução já tiver terminado, rode a publicação novamente em **Actions** ou envie outra alteração para `main`. [Configuração do GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
-
-O workflow compila o app nos pull requests e na branch principal. Em `main`, ele publica o site e, quando encontra uma versão inédita, cria a tag e o release com as notas do [changelog](CHANGELOG.md), os dois executáveis, o ZIP web e a lista de hashes SHA-256.
-
-Para preparar a próxima versão, rode `npm version patch --no-git-tag-version`, acrescente a seção correspondente em `CHANGELOG.md` e envie os arquivos alterados para `main`. O comando sincroniza os arquivos do npm e do Cargo. O site recebe a nova versão quando todas as abas e janelas abertas do Blingo forem fechadas e o usuário voltar a abrir o app.
-
-## Personagens e áudio
-
-Pip, Dot, Moxie, Pebble e Echo têm poses de espera, fala, acerto, incentivo e conclusão. Dot acompanha as atividades de escuta e faz as próprias reações. Na galeria, toque no botão de um personagem encontrado para rever sua comemoração. As ilustrações respeitam a preferência de movimento reduzido. [Cenas do Pip](design/pip-scenes.webp) · [Referência original da turma](design/crew-reference.webp)
-
-A pronúncia usa três vozes de inglês americano produzidas com [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) sob licença Apache 2.0 e com o fonemizador [Misaki](https://github.com/hexgrad/misaki). O MP3 final já vem no app. Bricolage Grotesque e Instrument Sans acompanham suas licenças SIL Open Font em `public/fonts/`.
-
-O Blingo surgiu do [Lingo de Sanidhya Kumar Verma](https://github.com/sanidhyy/duolingo-clone). Consulte a [licença](LICENSE).
+O projeto surgiu do [Lingo](https://github.com/sanidhyy/duolingo-clone), de Sanidhya Kumar Verma. Os áudios de inglês foram produzidos com [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M). As licenças das fontes Bricolage Grotesque e Instrument Sans estão em [public/fonts](public/fonts). O código usa a [licença MIT](LICENSE).
