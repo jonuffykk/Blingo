@@ -38,4 +38,4 @@ Correções nas lições, no áudio, nas animações e na interface são bem-vin
 
 ### Créditos
 
-O projeto surgiu do [Lingo](https://github.com/sanidhyy/duolingo-clone), de Sanidhya Kumar Verma. Os áudios de inglês foram produzidos com [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M). As licenças das fontes Bricolage Grotesque e Instrument Sans estão em [public/fonts](public/fonts). O código usa a [licença MIT](LICENSE).
+Feito por [Anderson Alves](https://andersonalves.site). Os áudios de inglês foram produzidos com [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M). As licenças das fontes Bricolage Grotesque e Instrument Sans estão em [public/fonts](public/fonts). O código usa a [licença MIT](LICENSE).
